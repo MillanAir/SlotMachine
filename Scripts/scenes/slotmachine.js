@@ -42,6 +42,14 @@ var scenes;
             this._spinButton = new objects.Button("SpinButton", 716, 587, false);
             this.addChild(this._spinButton);
             this._spinButton.on("click", this._spinButtonClick, this);
+            //Initialize array of bitmaps
+            this._reels = new Array();
+            for (var reel = 0; reel < 3; reel++) {
+                this._reels[reel] = new createjs.Bitmap(assets.getResult("Blank"));
+                this._reels[reel].y = 350;
+                this._reels[reel].x = 545 + (reel * 72);
+                this.addChild(this._reels[reel]);
+            }
             // Setup Background
             this._setupBackground("BlackBackground");
             // FadeIn
@@ -59,7 +67,7 @@ var scenes;
         };
         /* When this function is called it determines the betLine results.
         e.g. Bar - Orange - Banana */
-        SlotMachine.prototype._reels = function () {
+        SlotMachine.prototype._spinReels = function () {
             var betLine = [" ", " ", " "];
             var outCome = [0, 0, 0];
             for (var spin = 0; spin < 3; spin++) {
@@ -112,8 +120,10 @@ var scenes;
             console.log("Bet 100 Credit");
         };
         SlotMachine.prototype._spinButtonClick = function (event) {
-            console.log("Spin those reels!");
-            console.log(this._reels());
+            var bitmap = this._spinReels();
+            for (var reel = 0; reel < 3; reel++) {
+                this._reels[reel].image = assets.getResult(bitmap[reel]);
+            }
         };
         return SlotMachine;
     })(objects.Scene);

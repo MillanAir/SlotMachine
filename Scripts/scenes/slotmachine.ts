@@ -54,8 +54,8 @@ module scenes {
             this._reels=new Array<createjs.Bitmap>();
             for(var reel:number = 0; reel < 3; reel++){
                 this._reels[reel]=new createjs.Bitmap(assets.getResult("Blank"));
-                this._reels[reel].y=500;
-                this._reels[reel].x=420 + (reel * 72);
+                this._reels[reel].y=350;
+                this._reels[reel].x=545 + (reel * 72);
                 this.addChild(this._reels[reel]);                
             }
         
