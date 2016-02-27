@@ -1,0 +1,14 @@
+﻿body {
+    background-color: black;
+}
+
+canvas {
+    text-align: center;
+    margin-left: 10%;
+    background-color:black;
+}
+
+.game {
+    width: 80%;
+    margin: 0 auto;
+}
