@@ -25,6 +25,14 @@ var assetData:objects.Asset[] = [
     {id: "Bet100Button", src:"../../Assets/images/Bet100Button.png"},
     {id: "SpinButton", src:"../../Assets/images/SpinButton.png"},
     {id: "BlackBackground", src:"../../Assets/images/BlackBackground.png"},
+    {id: "Blank", src:"../../Assets/images/Blank.png"},
+    {id: "Grapes", src:"../../Assets/images/Grapes.png"},
+    {id: "Banana", src:"../../Assets/images/Banana.png"},
+    {id: "Cherry", src:"../../Assets/images/Cherry.png"},
+    {id: "Orange", src:"../../Assets/images/Orange.png"},
+    {id: "Bar", src:"../../Assets/images/Bar.png"},
+    {id: "Bell", src:"../../Assets/images/Bell.png"},
+    {id: "Seven", src:"../../Assets/images/Seven.png"},
     {id: "Title", src:"../../Assets/images/Title.png"}
 ];
 
@@ -114,3 +122,5 @@ function changeScene(): void {
 
     console.log(currentScene.numChildren);
 }
+
+window.onload = preload;
