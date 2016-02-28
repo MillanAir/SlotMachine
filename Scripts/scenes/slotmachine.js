@@ -57,7 +57,7 @@ var scenes;
             this._resultText.textAlign = "right";
             this.addChild(this._resultText);
             // add Jackpot Text to the scene
-            this._jackpotText = new objects.Label(this._jackpot.toString(), "20px Consolas", "#ff0000", 690, 720, false);
+            this._jackpotText = new objects.Label(this._jackpot.toString(), "20px Consolas", "#ff0000", 665, 720, false);
             this._jackpotText.textAlign = "right";
             this.addChild(this._jackpotText);
             //Initialize array of bitmaps
@@ -238,8 +238,9 @@ var scenes;
                     this._reels[reel].image = assets.getResult(bitmap[reel]);
                 }
                 this._determineWinnings();
-                // reset player's bet to zero
+                // reset player's bet and winnings to zero
                 this._playerBets = 0;
+                this._winnings = 0;
                 this._betText.text = this._playerBets.toString();
             }
         };

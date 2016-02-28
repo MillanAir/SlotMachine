@@ -93,7 +93,7 @@ module scenes {
                 this._jackpot.toString(),
                 "20px Consolas",
                 "#ff0000",
-                690, 720, false);
+                665, 720, false);
             this._jackpotText.textAlign = "right";
             this.addChild(this._jackpotText);
             
@@ -267,7 +267,7 @@ module scenes {
                 this._playerBets += playerBet;
                 this._playerMoney -= playerBet;
                 this._creditsText.text = this._playerMoney.toString();
-                this._betText.text = this._playerBets.toString();
+                this._betText.text = this._playerBets.toString();                
             }
 
         }
@@ -299,8 +299,9 @@ module scenes {
                 
                 this._determineWinnings();
                 
-                // reset player's bet to zero
+                // reset player's bet and winnings to zero
                 this._playerBets =0;
+                this._winnings =0;
                 this._betText.text = this._playerBets.toString();
             }
 
