@@ -42,14 +42,24 @@ var scenes;
             this._spinButton = new objects.Button("SpinButton", 716, 587, false);
             this.addChild(this._spinButton);
             this._spinButton.on("click", this._spinButtonClick, this);
+            // add Credit Text to the scene
+            this._creditsText = new objects.Label("000000", "20px Consolas", "#ff0000", 557, 237, false);
+            this._creditsText.textAlign = "right";
+            this.addChild(this._creditsText);
+            // add Bet Text to the scene
+            this._betText = new objects.Label("000000", "20px Consolas", "#ff0000", 675, 237, false);
+            this._betText.textAlign = "right";
+            this.addChild(this._betText);
+            // add Result Text to the scene
+            this._resultText = new objects.Label("000000", "20px Consolas", "#ff0000", 792, 237, false);
+            this._resultText.textAlign = "right";
+            this.addChild(this._resultText);
+            // add Jackpot Text to the scene
+            this._jackpotText = new objects.Label("000000000", "20px Consolas", "#ff0000", 690, 720, false);
+            this._jackpotText.textAlign = "right";
+            this.addChild(this._jackpotText);
             //Initialize array of bitmaps
-            this._reels = new Array();
-            for (var reel = 0; reel < 3; reel++) {
-                this._reels[reel] = new createjs.Bitmap(assets.getResult("Blank"));
-                this._reels[reel].y = 350;
-                this._reels[reel].x = 545 + (reel * 72);
-                this.addChild(this._reels[reel]);
-            }
+            this._initializeBitmapArray();
             // Setup Background
             this._setupBackground("BlackBackground");
             // FadeIn
@@ -108,6 +118,16 @@ var scenes;
                 }
             }
             return betLine;
+        };
+        SlotMachine.prototype._initializeBitmapArray = function () {
+            //Initialize array of bitmaps
+            this._reels = new Array();
+            for (var reel = 0; reel < 3; reel++) {
+                this._reels[reel] = new createjs.Bitmap(assets.getResult("Blank"));
+                this._reels[reel].y = 350;
+                this._reels[reel].x = 545 + (reel * 72);
+                this.addChild(this._reels[reel]);
+            }
         };
         //EVENT HANDLERS ++++++++++++++++++++
         SlotMachine.prototype._bet1ButtonClick = function (event) {

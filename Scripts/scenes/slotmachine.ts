@@ -7,7 +7,11 @@ module scenes {
         private _bet10Button: objects.Button;
         private _bet100Button: objects.Button;
         private _spinButton: objects.Button;
-        private _reels:createjs.Bitmap[];
+        private _reels: createjs.Bitmap[];
+        private _jackpotText: objects.Label;
+        private _creditsText: objects.Label;
+        private _betText: objects.Label;
+        private _resultText: objects.Label;
 
         private _grapes = 0;
         private _bananas = 0;
@@ -48,16 +52,46 @@ module scenes {
             // add SpinButton to the scene
             this._spinButton = new objects.Button("SpinButton", 716, 587, false);
             this.addChild(this._spinButton);
-            this._spinButton.on("click", this._spinButtonClick, this); 
-        
+            this._spinButton.on("click", this._spinButtonClick, this);
+
+            // add Credit Text to the scene
+            this._creditsText = new objects.Label(
+                "000000",
+                "20px Consolas",
+                "#ff0000",
+                557, 237, false);
+            this._creditsText.textAlign = "right";
+            this.addChild(this._creditsText);
+            
+            // add Bet Text to the scene
+            this._betText = new objects.Label(
+                "000000",
+                "20px Consolas",
+                "#ff0000",
+                675, 237, false);
+            this._betText.textAlign = "right";
+            this.addChild(this._betText);
+            
+            // add Result Text to the scene
+            this._resultText = new objects.Label(
+                "000000",
+                "20px Consolas",
+                "#ff0000",
+                792, 237, false);
+            this._resultText.textAlign = "right";
+            this.addChild(this._resultText);
+            
+            // add Jackpot Text to the scene
+            this._jackpotText = new objects.Label(
+                "000000000",
+                "20px Consolas",
+                "#ff0000",
+                690, 720, false);
+            this._jackpotText.textAlign = "right";
+            this.addChild(this._jackpotText);
+            
             //Initialize array of bitmaps
-            this._reels=new Array<createjs.Bitmap>();
-            for(var reel:number = 0; reel < 3; reel++){
-                this._reels[reel]=new createjs.Bitmap(assets.getResult("Blank"));
-                this._reels[reel].y=350;
-                this._reels[reel].x=545 + (reel * 72);
-                this.addChild(this._reels[reel]);                
-            }
+            this._initializeBitmapArray();
         
             // Setup Background
             this._setupBackground("BlackBackground");
@@ -125,6 +159,18 @@ module scenes {
             }
             return betLine;
         }
+
+        private _initializeBitmapArray(): void {
+            //Initialize array of bitmaps
+            
+            this._reels = new Array<createjs.Bitmap>();
+            for (var reel: number = 0; reel < 3; reel++) {
+                this._reels[reel] = new createjs.Bitmap(assets.getResult("Blank"));
+                this._reels[reel].y = 350;
+                this._reels[reel].x = 545 + (reel * 72);
+                this.addChild(this._reels[reel]);
+            }
+        }
         
         //EVENT HANDLERS ++++++++++++++++++++
         private _bet1ButtonClick(event: createjs.MouseEvent): void {
@@ -140,9 +186,9 @@ module scenes {
         }
 
         private _spinButtonClick(event: createjs.MouseEvent): void {
-            var bitmap:string[] = this._spinReels();
-            
-            for(var reel:number = 0; reel < 3; reel++){
+            var bitmap: string[] = this._spinReels();
+
+            for (var reel: number = 0; reel < 3; reel++) {
                 this._reels[reel].image = assets.getResult(bitmap[reel]);
             }
         }
