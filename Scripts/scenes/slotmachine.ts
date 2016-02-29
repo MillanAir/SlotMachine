@@ -7,6 +7,8 @@ module scenes {
         private _bet10Button: objects.Button;
         private _bet100Button: objects.Button;
         private _spinButton: objects.Button;
+        private _resetButton: objects.Button;
+        private _startOverButton: objects.Button;
         private _reels: createjs.Bitmap[];
         private _jackpotText: objects.Label;
         private _creditsText: objects.Label;
@@ -60,6 +62,16 @@ module scenes {
             this._spinButton = new objects.Button("SpinButton", 716, 587, false);
             this.addChild(this._spinButton);
             this._spinButton.on("click", this._spinButtonClick, this);
+            
+            // add resetButton to the scene
+            this._resetButton = new objects.Button("ResetButton", 100, 100, false);
+            this.addChild(this._resetButton);
+            this._resetButton.on("click", this._resetButtonClick, this);
+            
+            // add startOverButton to the scene
+            this._startOverButton = new objects.Button("StartOverButton", 100, 200, false);
+            this.addChild(this._startOverButton);
+            this._startOverButton.on("click", this._startOverButtonClick, this);
 
             // add Credit Text to the scene
             this._creditsText = new objects.Label(
@@ -112,14 +124,14 @@ module scenes {
 
         // SLOT_MACHINE Scene updates here
         public update(): void {
-
+            
         }
 
         private _resetAll() {
             this._playerMoney = 1000;
             this._winnings = 0;
             this._jackpot = 5000;
-            this._playerBets = 0;
+            this._playerBets = 0;            
         }
         
         //PRIVATE METHODS
@@ -250,8 +262,8 @@ module scenes {
         }
 
         //Initialize array of bitmaps 
-        private _initializeBitmapArray(): void {            
-                       
+        private _initializeBitmapArray(): void {
+
             this._reels = new Array<createjs.Bitmap>();
             for (var reel: number = 0; reel < 3; reel++) {
                 this._reels[reel] = new createjs.Bitmap(assets.getResult("Blank"));
@@ -267,9 +279,13 @@ module scenes {
                 this._playerBets += playerBet;
                 this._playerMoney -= playerBet;
                 this._creditsText.text = this._playerMoney.toString();
-                this._betText.text = this._playerBets.toString();                
-            }
-
+                this._betText.text = this._playerBets.toString();
+            }   
+            else{
+                // Greying out the button
+                console.log("Grey out");
+                this._spinButton.alpha = 0.2;
+            }         
         }
         
         //EVENT HANDLERS ++++++++++++++++++++
@@ -288,6 +304,26 @@ module scenes {
             this._placeBet(100);
         }
 
+        private _resetButtonClick(event: createjs.MouseEvent): void {
+            console.log("Reset the game values to intial values");
+            this._resetAll();
+            this._creditsText.text = "1000";
+            this._betText.text = "0";
+            this._jackpotText.text = "5000";
+            this._resultText.text = "0";
+        }
+        
+        private _startOverButtonClick(event: createjs.MouseEvent):void{
+            console.log("Reset the game");
+            //Change scene
+            //FadeOut 
+            this._fadeOut(500, () => {
+                // Switch to the MENU Scene
+                scene = config.Scene.MENU;
+                changeScene();
+            });
+        }
+
         private _spinButtonClick(event: createjs.MouseEvent): void {
             //ensure player has enough money
             if (this._playerBets > 0) {
@@ -296,13 +332,19 @@ module scenes {
                 for (var reel: number = 0; reel < 3; reel++) {
                     this._reels[reel].image = assets.getResult(bitmap[reel]);
                 }
-                
+
                 this._determineWinnings();
                 
                 // reset player's bet and winnings to zero
-                this._playerBets =0;
-                this._winnings =0;
+                this._playerBets = 0;
+                this._winnings = 0;
                 this._betText.text = this._playerBets.toString();
+            }
+            
+            else{
+                // Greying out the button
+                console.log("Grey out");
+                this._spinButton.alpha = 0.2;
             }
 
         }

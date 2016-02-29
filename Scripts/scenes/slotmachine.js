@@ -44,6 +44,14 @@ var scenes;
             this._spinButton = new objects.Button("SpinButton", 716, 587, false);
             this.addChild(this._spinButton);
             this._spinButton.on("click", this._spinButtonClick, this);
+            // add resetButton to the scene
+            this._resetButton = new objects.Button("ResetButton", 100, 100, false);
+            this.addChild(this._resetButton);
+            this._resetButton.on("click", this._resetButtonClick, this);
+            // add startOverButton to the scene
+            this._startOverButton = new objects.Button("StartOverButton", 100, 200, false);
+            this.addChild(this._startOverButton);
+            this._startOverButton.on("click", this._startOverButtonClick, this);
             // add Credit Text to the scene
             this._creditsText = new objects.Label(this._playerMoney.toString(), "20px Consolas", "#ff0000", 557, 237, false);
             this._creditsText.textAlign = "right";
@@ -216,6 +224,11 @@ var scenes;
                 this._creditsText.text = this._playerMoney.toString();
                 this._betText.text = this._playerBets.toString();
             }
+            else {
+                // Greying out the button
+                console.log("Grey out");
+                this._spinButton.alpha = 0.2;
+            }
         };
         //EVENT HANDLERS ++++++++++++++++++++
         SlotMachine.prototype._bet1ButtonClick = function (event) {
@@ -230,6 +243,24 @@ var scenes;
             console.log("Bet 100 Credit");
             this._placeBet(100);
         };
+        SlotMachine.prototype._resetButtonClick = function (event) {
+            console.log("Reset the game values to intial values");
+            this._resetAll();
+            this._creditsText.text = "1000";
+            this._betText.text = "0";
+            this._jackpotText.text = "5000";
+            this._resultText.text = "0";
+        };
+        SlotMachine.prototype._startOverButtonClick = function (event) {
+            console.log("Reset the game");
+            //Change scene
+            //FadeOut 
+            this._fadeOut(500, function () {
+                // Switch to the MENU Scene
+                scene = config.Scene.MENU;
+                changeScene();
+            });
+        };
         SlotMachine.prototype._spinButtonClick = function (event) {
             //ensure player has enough money
             if (this._playerBets > 0) {
@@ -242,6 +273,11 @@ var scenes;
                 this._playerBets = 0;
                 this._winnings = 0;
                 this._betText.text = this._playerBets.toString();
+            }
+            else {
+                // Greying out the button
+                console.log("Grey out");
+                this._spinButton.alpha = 0.2;
             }
         };
         return SlotMachine;
